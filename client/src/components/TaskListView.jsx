@@ -1,6 +1,5 @@
 import React from "react";
 import { CheckCircle, Circle, CalendarBlank, PencilSimple, Trash, Plus } from "@phosphor-icons/react";
-import { useTheme } from "../context/ThemeContext";
 
 const PRIORITY_CONFIG = {
   low: { label: "Low", color: "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20" },
@@ -18,8 +17,6 @@ export default function TaskListView({
   onToggleCompleteTask,
   onMoveTask,
 }) {
-  const { currentAccent } = useTheme();
-
   if (tasks.length === 0) {
     return (
       <div className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 bg-white/40 dark:bg-slate-900/30 p-12 text-center my-6">
@@ -29,7 +26,7 @@ export default function TaskListView({
         </p>
         <button
           onClick={() => onAddTask()}
-          className={`mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition ${currentAccent.tailwind}`}
+          className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm transition"
         >
           <Plus size={14} weight="bold" />
           Create Task
@@ -97,7 +94,7 @@ export default function TaskListView({
                         className={`font-semibold ${
                           task.completed
                             ? "line-through text-slate-400 dark:text-slate-500"
-                            : "text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                            : "text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
                         }`}
                       >
                         {task.title}

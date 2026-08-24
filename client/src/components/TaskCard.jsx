@@ -8,7 +8,6 @@ import {
   Trash,
   ArrowRight,
 } from "@phosphor-icons/react";
-import { useTheme } from "../context/ThemeContext";
 
 const PRIORITY_CONFIG = {
   low: { label: "Low", color: "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20" },
@@ -25,7 +24,6 @@ export default function TaskCard({
   onToggleComplete,
   onMoveToSection,
 }) {
-  const { currentAccent } = useTheme();
   const [showMenu, setShowMenu] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -60,7 +58,7 @@ export default function TaskCard({
       onDragEnd={handleDragEnd}
       className={`group relative rounded-2xl border p-4 shadow-sm backdrop-blur-sm transition-all duration-200 cursor-grab active:cursor-grabbing ${
         isDragging
-          ? "opacity-40 scale-95 border-blue-500"
+          ? "opacity-40 scale-95 border-indigo-500"
           : "bg-white dark:bg-slate-900/90 border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md"
       } ${task.completed ? "bg-slate-50/60 dark:bg-slate-900/40 opacity-75" : ""}`}
     >
@@ -171,7 +169,7 @@ export default function TaskCard({
             className={`text-xs font-semibold leading-snug cursor-pointer transition ${
               task.completed
                 ? "line-through text-slate-400 dark:text-slate-500"
-                : "text-slate-800 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400"
+                : "text-slate-800 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400"
             }`}
           >
             {task.title}

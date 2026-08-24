@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { X, FolderSimplePlus, Palette } from "@phosphor-icons/react";
-import { useTheme } from "../context/ThemeContext";
 
 const PROJECT_COLORS = [
-  "#3b82f6", // Blue
   "#6366f1", // Indigo
+  "#3b82f6", // Blue
   "#10b981", // Emerald
   "#8b5cf6", // Violet
   "#f43f5e", // Rose
@@ -20,7 +19,6 @@ export default function CreateProjectModal({
   initialData = null,
   loading = false,
 }) {
-  const { currentAccent } = useTheme();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [color, setColor] = useState(PROJECT_COLORS[0]);
@@ -105,7 +103,7 @@ export default function CreateProjectModal({
               }}
               placeholder="e.g. Website Redesign, Mobile App"
               autoFocus
-              className={`w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none transition ${currentAccent.ring}`}
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             />
           </div>
 
@@ -118,7 +116,7 @@ export default function CreateProjectModal({
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What are the goals of this project?"
               rows={3}
-              className={`w-full resize-none rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none transition ${currentAccent.ring}`}
+              className="w-full resize-none rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             />
           </div>
 
@@ -135,7 +133,7 @@ export default function CreateProjectModal({
                   onClick={() => setColor(c)}
                   className={`w-7 h-7 rounded-full transition-transform ${
                     color === c
-                      ? "scale-125 ring-2 ring-slate-900 dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+                      ? "scale-125 ring-2 ring-indigo-600 dark:ring-white ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
                       : "hover:scale-110 opacity-70 hover:opacity-100"
                   }`}
                   style={{ backgroundColor: c }}
@@ -156,7 +154,7 @@ export default function CreateProjectModal({
             <button
               type="submit"
               disabled={loading}
-              className={`px-4 py-2 text-xs font-semibold rounded-xl shadow-md transition disabled:opacity-50 ${currentAccent.tailwind}`}
+              className="px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/20 transition disabled:opacity-50"
             >
               {loading ? (isEditing ? "Saving..." : "Creating...") : (isEditing ? "Save Changes" : "Create Project")}
             </button>

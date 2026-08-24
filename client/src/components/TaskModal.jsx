@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { X, Trash, CalendarBlank, Flag, Columns, CheckCircle } from "@phosphor-icons/react";
-import { useTheme } from "../context/ThemeContext";
 
 const PRIORITIES = [
   { value: "low", label: "Low", color: "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/30" },
@@ -19,7 +18,6 @@ export default function TaskModal({
   defaultSectionId = null,
   loading = false,
 }) {
-  const { currentAccent } = useTheme();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [sectionId, setSectionId] = useState("");
@@ -113,7 +111,7 @@ export default function TaskModal({
               }}
               placeholder="e.g. Implement user authentication"
               autoFocus
-              className={`w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none transition ${currentAccent.ring}`}
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             />
           </div>
 
@@ -127,7 +125,7 @@ export default function TaskModal({
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add extra context, checklists, or links..."
               rows={3}
-              className={`w-full resize-none rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none transition ${currentAccent.ring}`}
+              className="w-full resize-none rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2.5 text-xs font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             />
           </div>
 
@@ -141,7 +139,7 @@ export default function TaskModal({
               <select
                 value={sectionId}
                 onChange={(e) => setSectionId(e.target.value)}
-                className={`w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-white outline-none cursor-pointer transition ${currentAccent.ring}`}
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-white outline-none cursor-pointer focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
               >
                 {sections.map((sec) => (
                   <option key={sec._id} value={sec._id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
@@ -161,7 +159,7 @@ export default function TaskModal({
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className={`w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-white outline-none cursor-pointer transition ${currentAccent.ring}`}
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-950/60 px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-white outline-none cursor-pointer focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
               />
             </div>
           </div>
@@ -180,7 +178,7 @@ export default function TaskModal({
                   onClick={() => setPriority(p.value)}
                   className={`py-2 px-3 rounded-xl text-xs font-semibold border text-center transition ${
                     priority === p.value
-                      ? `${p.color} ring-2 ring-slate-900/10 dark:ring-white/20 shadow-sm font-bold`
+                      ? `${p.color} ring-2 ring-indigo-500/40 shadow-sm font-bold`
                       : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/40"
                   }`}
                 >
@@ -198,7 +196,7 @@ export default function TaskModal({
                   type="checkbox"
                   checked={completed}
                   onChange={(e) => setCompleted(e.target.checked)}
-                  className="w-4 h-4 rounded text-blue-600 bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-700 cursor-pointer"
+                  className="w-4 h-4 rounded text-indigo-600 bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-700 cursor-pointer"
                 />
                 <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                   <CheckCircle size={16} weight="fill" className={completed ? "text-emerald-500" : "text-slate-400"} />
@@ -236,7 +234,7 @@ export default function TaskModal({
               <button
                 type="submit"
                 disabled={loading}
-                className={`px-4 py-2 text-xs font-semibold rounded-xl shadow-md transition disabled:opacity-50 ${currentAccent.tailwind}`}
+                className="px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/20 transition disabled:opacity-50"
               >
                 {loading ? "Saving..." : isEditing ? "Save Changes" : "Create Task"}
               </button>

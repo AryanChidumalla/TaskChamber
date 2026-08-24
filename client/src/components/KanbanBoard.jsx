@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Plus, PencilSimple, Trash, Check, X } from "@phosphor-icons/react";
 import TaskCard from "./TaskCard";
-import { useTheme } from "../context/ThemeContext";
 
 export default function KanbanBoard({
   sections = [],
@@ -15,7 +14,6 @@ export default function KanbanBoard({
   onUpdateSection,
   onDeleteSection,
 }) {
-  const { currentAccent } = useTheme();
   const [dragOverSectionId, setDragOverSectionId] = useState(null);
   const [newSectionName, setNewSectionName] = useState("");
   const [isAddingSection, setIsAddingSection] = useState(false);
@@ -81,7 +79,7 @@ export default function KanbanBoard({
             onDrop={(e) => handleDrop(e, section._id)}
             className={`w-80 shrink-0 flex flex-col rounded-3xl border transition-all duration-200 ${
               isDragOver
-                ? "border-blue-500/80 bg-blue-50/50 dark:bg-slate-900/80 ring-2 ring-blue-500/20"
+                ? "border-indigo-500/80 bg-indigo-50/50 dark:bg-slate-900/80 ring-2 ring-indigo-500/20"
                 : "bg-slate-100/70 dark:bg-slate-900/50 border-slate-200/80 dark:border-slate-800/80"
             }`}
           >
@@ -99,7 +97,7 @@ export default function KanbanBoard({
                         if (e.key === "Enter") handleSaveRename(section._id);
                         if (e.key === "Escape") setEditingSectionId(null);
                       }}
-                      className="w-full text-xs font-semibold px-2 py-1 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-blue-500 outline-none"
+                      className="w-full text-xs font-semibold px-2 py-1 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-indigo-500 outline-none"
                     />
                     <button
                       onClick={() => handleSaveRename(section._id)}
@@ -162,7 +160,7 @@ export default function KanbanBoard({
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">No tasks in this stage</p>
                   <button
                     onClick={() => onAddTask(section._id)}
-                    className={`mt-2 text-xs font-semibold ${currentAccent.text} hover:underline transition`}
+                    className="mt-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline transition"
                   >
                     + Add Task
                   </button>
@@ -209,7 +207,7 @@ export default function KanbanBoard({
               onChange={(e) => setNewSectionName(e.target.value)}
               placeholder="e.g. In Review, QA"
               autoFocus
-              className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white outline-none focus:border-blue-500"
+              className="w-full text-xs px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white outline-none focus:border-indigo-500"
             />
             <div className="flex items-center justify-end gap-2">
               <button
@@ -224,7 +222,7 @@ export default function KanbanBoard({
               </button>
               <button
                 type="submit"
-                className={`px-3 py-1 text-xs font-semibold text-white rounded-xl shadow-sm transition ${currentAccent.tailwind}`}
+                className="px-3 py-1 text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow-sm transition"
               >
                 Add Column
               </button>

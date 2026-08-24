@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Plus, DotsThreeVertical, PencilSimple, Trash } from "@phosphor-icons/react";
-import { useTheme } from "../context/ThemeContext";
 
 export default function ProjectSidebar({
   projects = [],
@@ -12,7 +11,6 @@ export default function ProjectSidebar({
   isOpen = true,
   onCloseMobile,
 }) {
-  const { currentAccent } = useTheme();
   const [activeMenuProjectId, setActiveMenuProjectId] = useState(null);
 
   return (
@@ -37,7 +35,7 @@ export default function ProjectSidebar({
               onOpenCreateProject();
               if (onCloseMobile) onCloseMobile();
             }}
-            className={`w-full flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-semibold shadow-sm transition ${currentAccent.tailwind}`}
+            className="w-full flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 text-xs font-semibold shadow-sm transition shadow-indigo-600/20"
           >
             <Plus size={15} weight="bold" />
             New Project
@@ -71,7 +69,7 @@ export default function ProjectSidebar({
                       key={project._id}
                       className={`group relative flex items-center justify-between rounded-2xl px-3 py-2 text-xs font-medium transition ${
                         isSelected
-                          ? "bg-slate-100 dark:bg-slate-800/90 text-slate-900 dark:text-white shadow-sm font-semibold"
+                          ? "bg-indigo-50 text-indigo-900 border border-indigo-200/60 dark:bg-slate-800/90 dark:text-white dark:border-transparent shadow-sm font-semibold"
                           : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/80 hover:text-slate-900 dark:hover:text-slate-200"
                       }`}
                     >
@@ -86,7 +84,7 @@ export default function ProjectSidebar({
                         <span
                           className="w-2.5 h-2.5 rounded-full shrink-0 shadow-sm"
                           style={{
-                            backgroundColor: project.color || "#3b82f6",
+                            backgroundColor: project.color || "#6366f1",
                           }}
                         />
                         <span className="truncate">{project.name}</span>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Warning, X } from "@phosphor-icons/react";
-import { useTheme } from "../context/ThemeContext";
 
 export default function ConfirmModal({
   isOpen,
@@ -12,8 +11,6 @@ export default function ConfirmModal({
   onCancel,
   loading = false,
 }) {
-  const { currentAccent } = useTheme();
-
   if (!isOpen) return null;
 
   return (
@@ -54,7 +51,7 @@ export default function ConfirmModal({
             className={`px-4 py-2 text-xs font-semibold rounded-xl text-white transition shadow-sm disabled:opacity-50 ${
               confirmVariant === "danger"
                 ? "bg-rose-600 hover:bg-rose-500"
-                : currentAccent.tailwind
+                : "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/20"
             }`}
           >
             {loading ? "Processing..." : confirmLabel}

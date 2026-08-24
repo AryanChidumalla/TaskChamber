@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
 import {
   getProjects,
   createProject,
@@ -28,7 +27,8 @@ import CreateProjectModal from "../components/CreateProjectModal";
 import TaskModal from "../components/TaskModal";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
-import ThemeSelector from "../components/ThemeSelector";
+import ThemeToggle from "../components/ThemeToggle";
+import Logo from "../components/Logo";
 
 import {
   SquaresFour,
@@ -45,7 +45,6 @@ import {
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
-  const { currentAccent } = useTheme();
 
   // Primary Data State
   const [projects, setProjects] = useState([]);
@@ -364,7 +363,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-blue-500/20">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-indigo-500/20">
       {/* Top Navbar */}
       <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-30 shrink-0">
         <div className="h-full px-4 sm:px-6 flex items-center justify-between">
@@ -376,23 +375,13 @@ export default function Dashboard() {
             >
               <MenuIcon size={18} weight="bold" />
             </button>
-            <div className="flex items-center gap-2.5">
-              <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-white shadow-md text-xs"
-                style={{ backgroundColor: currentAccent.hex }}
-              >
-                TC
-              </div>
-              <h1 className="text-sm font-bold tracking-tight text-slate-900 dark:text-white hidden sm:block">
-                TaskChamber
-              </h1>
-            </div>
+            <Logo size={32} showText={true} textClassName="text-base font-bold hidden sm:inline" />
           </div>
 
           {/* Right Nav Actions */}
           <div className="flex items-center gap-3">
-            {/* Theme & Palette Switcher */}
-            <ThemeSelector />
+            {/* Theme Toggle (Dark / Light) */}
+            <ThemeToggle />
 
             <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-800" />
 
@@ -435,16 +424,13 @@ export default function Dashboard() {
         <main className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-950 p-4 sm:p-8">
           {loadingProjects ? (
             <div className="h-96 flex flex-col items-center justify-center text-slate-400 text-xs">
-              <div
-                className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin mb-3"
-                style={{ borderColor: currentAccent.hex, borderTopColor: "transparent" }}
-              />
+              <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mb-3" />
               Loading workspaces...
             </div>
           ) : projects.length === 0 ? (
             /* No Projects Empty State */
             <div className="max-w-md mx-auto my-20 text-center p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-900/30 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500 flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-4">
                 <FolderSimplePlus size={24} weight="bold" />
               </div>
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">No Workspaces Yet</h2>
@@ -453,7 +439,7 @@ export default function Dashboard() {
               </p>
               <button
                 onClick={handleOpenCreateProject}
-                className={`mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold shadow-md transition ${currentAccent.tailwind}`}
+                className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md shadow-indigo-600/20 transition"
               >
                 <Plus size={15} weight="bold" />
                 Create First Workspace
@@ -469,7 +455,7 @@ export default function Dashboard() {
                     <span
                       className="w-3.5 h-3.5 rounded-full shrink-0 shadow-sm"
                       style={{
-                        backgroundColor: selectedProject?.color || currentAccent.hex,
+                        backgroundColor: selectedProject?.color || "#6366f1",
                       }}
                     />
                     <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -500,7 +486,7 @@ export default function Dashboard() {
 
                   <button
                     onClick={() => handleOpenAddTask()}
-                    className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-xs font-semibold shadow-sm transition ${currentAccent.tailwind}`}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 text-xs font-semibold shadow-sm transition shadow-indigo-600/20"
                   >
                     <Plus size={15} weight="bold" />
                     Add Task
@@ -519,7 +505,7 @@ export default function Dashboard() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search tasks..."
-                      className={`w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none transition ${currentAccent.ring}`}
+                      className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                     />
                   </div>
 
@@ -556,7 +542,7 @@ export default function Dashboard() {
                     onClick={() => setViewMode("kanban")}
                     className={`flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-xl transition ${
                       viewMode === "kanban"
-                        ? `${currentAccent.tailwind} shadow-sm`
+                        ? "bg-indigo-600 text-white shadow-sm"
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                     }`}
                   >
@@ -567,7 +553,7 @@ export default function Dashboard() {
                     onClick={() => setViewMode("list")}
                     className={`flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-xl transition ${
                       viewMode === "list"
-                        ? `${currentAccent.tailwind} shadow-sm`
+                        ? "bg-indigo-600 text-white shadow-sm"
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                     }`}
                   >
@@ -580,10 +566,7 @@ export default function Dashboard() {
               {/* Main Task View Body */}
               {loadingProjectData ? (
                 <div className="h-64 flex flex-col items-center justify-center text-slate-400 text-xs">
-                  <div
-                    className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin mb-3"
-                    style={{ borderColor: currentAccent.hex, borderTopColor: "transparent" }}
-                  />
+                  <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mb-3" />
                   Loading workflow stages...
                 </div>
               ) : viewMode === "kanban" ? (
