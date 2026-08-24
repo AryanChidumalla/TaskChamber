@@ -2,8 +2,6 @@
 
 > A modern, minimalist full-stack project and task management workspace built with **React 19**, **Tailwind CSS v4**, **Node.js / Express**, and **MongoDB**.
 
-![TaskChamber Preview](https://via.placeholder.com/1200x630/090d16/ffffff?text=TaskChamber+Workspace)
-
 ---
 
 ## ✨ Features
@@ -56,151 +54,71 @@
 
 ### Backend
 - **Runtime**: [Node.js](https://nodejs.org/)
-- **Framework**: [Express 5](https://expressjs.com/)
+- **Framework**: [Express 5](https://expressjs.com/) (Serverless-ready on Vercel)
 - **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas) with [Mongoose 9](https://mongoosejs.com/)
 - **Authentication**: `jsonwebtoken` (JWT) + `bcryptjs`
-- **Security**: CORS, JSON payload validation, and custom JWT auth middleware
+- **Security**: CORS headers, JSON payload validation, and custom JWT auth middleware
 
 ---
 
-## 📁 Project Structure
+## 🚀 Deployment Guide (Vercel)
 
-```bash
-TaskChamber/
-├── client/                     # Frontend application (React + Vite)
-│   ├── src/
-│   │   ├── components/         # Reusable UI components
-│   │   │   ├── ConfirmModal.jsx
-│   │   │   ├── CreateProjectModal.jsx
-│   │   │   ├── KanbanBoard.jsx
-│   │   │   ├── ProjectSidebar.jsx
-│   │   │   ├── ProtectedRoute.jsx
-│   │   │   ├── TaskCard.jsx
-│   │   │   ├── TaskListView.jsx
-│   │   │   ├── TaskModal.jsx
-│   │   │   ├── ThemeSelector.jsx
-│   │   │   └── Toast.jsx
-│   │   ├── context/            # Global context providers
-│   │   │   ├── AuthContext.jsx
-│   │   │   └── ThemeContext.jsx
-│   │   ├── pages/              # Route views
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Login.jsx
-│   │   │   └── Register.jsx
-│   │   ├── services/           # API interaction layer
-│   │   │   ├── api.js
-│   │   │   ├── authService.js
-│   │   │   ├── projectService.js
-│   │   │   ├── sectionService.js
-│   │   │   └── taskService.js
-│   │   ├── App.jsx             # Main router
-│   │   ├── index.css           # Global stylesheet & CSS variables
-│   │   └── main.jsx            # Entry point
-│   ├── .env.example
-│   ├── package.json
-│   └── vite.config.js
-│
-├── server/                     # Backend API (Express + Node)
-│   ├── middleware/
-│   │   └── authMiddleware.js   # JWT authentication verification
-│   ├── models/                 # Mongoose database models
-│   │   ├── Project.js
-│   │   ├── Section.js
-│   │   ├── Task.js
-│   │   └── User.js
-│   ├── routes/                 # API route handlers
-│   │   ├── auth.js             # /api/auth
-│   │   ├── projects.js         # /api/projects
-│   │   ├── sections.js         # /api/sections
-│   │   └── tasks.js            # /api/tasks
-│   ├── .env.example
-│   ├── package.json
-│   └── server.js               # Express server entry point
-│
-├── .gitignore                  # Root Git ignore rules
-└── README.md                   # Project documentation
-```
+TaskChamber can be deployed on Vercel as two separate projects (one for `server` and one for `client`).
+
+### 1. Deploy the Backend (`/server`)
+1. Import your GitHub repository into Vercel.
+2. In the project configuration:
+   - **Root Directory**: `server`
+   - **Framework Preset**: `Other`
+3. Add the following **Environment Variables** in Vercel:
+   - `MONGODB_URI`: `mongodb+srv://<username>:<password>@cluster0.mongodb.net/taskchamber`
+   - `JWT_SECRET`: `your_secure_random_jwt_secret_key`
+4. Deploy! Your backend URL will look like: `https://your-backend.vercel.app`.
+
+> [!IMPORTANT]
+> **MongoDB Atlas Network Access**:
+> In your [MongoDB Atlas Dashboard](https://cloud.mongodb.com/):
+> Go to **Network Access** → **IP Access List** → Click **Add IP Address** → Choose **Allow Access from Anywhere (`0.0.0.0/0`)**.
+> Since Vercel uses dynamic serverless IP addresses, this is required so your backend can connect to MongoDB.
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+ recommended)
-- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas cluster connection string)
-- `npm` or `pnpm` / `yarn`
+### 2. Deploy the Frontend (`/client`)
+1. Import the same GitHub repository into Vercel as a new project.
+2. In the project configuration:
+   - **Root Directory**: `client`
+   - **Framework Preset**: `Vite`
+3. Add the following **Environment Variable** in Vercel:
+   - `VITE_API_URL`: `https://your-backend.vercel.app` (or `https://your-backend.vercel.app/api`)
+4. Deploy! Your frontend URL will look like: `https://your-frontend.vercel.app`.
 
 ---
 
-### 1. Clone the Repository
+## 💻 Local Development Setup
+
+### 1. Clone & Install
 ```bash
 git clone https://github.com/your-username/TaskChamber.git
 cd TaskChamber
 ```
 
----
-
 ### 2. Backend Setup
-1. Navigate to the server folder:
-   ```bash
-   cd server
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Configure environment variables:
-   Copy `.env.example` to `.env` and provide your credentials:
-   ```bash
-   cp .env.example .env
-   ```
-   *Example `.env`:*
-   ```env
-   PORT=5000
-   MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.mongodb.net/taskchamber"
-   JWT_SECRET="your_secure_random_jwt_secret_here"
-   ```
-
-4. Start the server:
-   ```bash
-   # Production mode
-   npm start
-
-   # Development mode (with nodemon)
-   npm run dev
-   ```
-   The backend API will run on `http://localhost:5000`.
-
----
+```bash
+cd server
+npm install
+cp .env.example .env
+# Edit .env with your MONGODB_URI and JWT_SECRET
+npm run dev
+```
 
 ### 3. Frontend Setup
-1. In a new terminal, navigate to the client folder:
-   ```bash
-   cd client
-   ```
+```bash
+cd ../client
+npm install
+npm run dev
+```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. (Optional) Configure environment variables:
-   Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-   *Example `.env`:*
-   ```env
-   VITE_API_URL="http://localhost:5000/api"
-   ```
-
-4. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-   Open your browser and visit `http://localhost:5173`.
+Visit `http://localhost:5173`.
 
 ---
 
@@ -241,18 +159,6 @@ cd TaskChamber
 
 ---
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'feat: add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
 ## 📄 License
 
-Distributed under the **ISC License**. See `LICENSE` for more information.
+Distributed under the **ISC License**.
